@@ -38,4 +38,4 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64
-          tags: hoshiyamazaki/kenos-build:alphadocker
+          tags: memegauste/kenos-build:alphadocker
