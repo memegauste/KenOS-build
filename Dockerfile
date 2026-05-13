@@ -1,7 +1,7 @@
-FROM ubuntu:noble
+FROM ubuntu:resolute
 WORKDIR /root/src
 ADD https://ftp.gnu.org/gnu/binutils/binutils-2.46.0.tar.gz /root/src/
-ADD https://ftp.gnu.org/gnu/gcc/gcc-15.2.0/gcc-15.2.0.tar.gz /root/src/
+ADD https://ftp.gnu.org/gnu/gcc/gcc-16.1.0/gcc-16.1.0.tar.gz /root/src/
 ENV TARGET=i686-elf \
     PREFIX=/root/opt/local \
     PATH="/root/opt/local/bin:${PATH}"
@@ -10,12 +10,12 @@ RUN apt-get update && apt-get -y upgrade; \
     apt-get -y install libgmp-dev libmpfr-dev libmpc-dev; \
     apt-get -y install grub-pc grub-common file texinfo mtools; \
     tar -xzvf binutils-2.46.0.tar.gz; \
-    tar -xzvf gcc-15.2.0.tar.gz; \
+    tar -xzvf gcc-16.1.0.tar.gz; \
     mkdir build-binutils && cd build-binutils; \
     ../binutils-2.46.0/configure --target=$TARGET --prefix="$PREFIX" --disable-multilib --disable-nls --disable-werror; \
     make -j$(nproc) && make install; \
     cd $HOME/src && mkdir build-gcc && cd build-gcc; \
-    ../gcc-15.2.0/configure --target=$TARGET --prefix="$PREFIX" --disable-multilib --disable-nls --enable-languages=c,c++ --without-headers; \
+    ../gcc-16.1.0/configure --target=$TARGET --prefix="$PREFIX" --disable-multilib --disable-nls --enable-languages=c,c++ --without-headers; \
     make -j$(nproc) all-gcc; \
     make all-target-libgcc; \
     make install-gcc; \
